@@ -11,43 +11,36 @@ class Simulacion:
             info = simFile.read()
             info_list = [s for s in info.split("\n") if s]
             tiempos = [float(i) for i in info_list]
-            self.RegresionPolinomial(tiempos, "Divide and Conquer")
+            self.Histograma(tiempos, "Divide and Conquer")
 
         with open("tiemposPD.txt", "r") as simFile:
             info = simFile.read()
             info_list = [s for s in info.split("\n") if s]
             tiempos = [float(i) for i in info_list]
 
-            self.RegresionPolinomial(tiempos, "Programación Dinámica")
+            self.Histograma(tiempos, "Programación Dinámica")
 
-    def RegresionPolinomial(self, listaTiempos, titulo):
-        conteoTiempos = len(listaTiempos)
-        X = np.array([[i] for i in range(conteoTiempos)])
-        y = np.array(listaTiempos)
-        Polinomial = PolynomialFeatures(degree=2)
-        XPolinomial = Polinomial.fit_transform(X)
-        Regresion = lm.LinearRegression()
-        Regresion.fit(XPolinomial, y)
-        print(titulo)
-        print(f"{titulo}  Coeficientes: ", Regresion.coef_)
-        print(f"{titulo}  Intercepto: ", Regresion.intercept_)
-        print(f"{titulo}  R^2: ", Regresion.score(XPolinomial, y))
+    def Histograma(self, listaTiempos, titulo):
+        X = listaTiempos
+        plt.hist(X, bins=10)
         plt.title(titulo)
-        plt.scatter(X, y)
-        plt.plot(X, Regresion.predict(XPolinomial), color="red")
         plt.show()
         fig, ax = plt.subplots()
-        ax.boxplot(X)
-        boxplot_dict = ax.boxplot(X)
-        for median in boxplot_dict["medians"]:
-            y_pos = median.get_ydata()[0]
-            plt.text(
-                median.get_xdata()[0],
-                y_pos,
-                f"{y_pos:.2f}",
-                ha="center",
-                va="bottom",
-                fontweight="bold",
-            )
-        plt.title(titulo)
+        ax.boxplot(listaTiempos)
+        ax.set_title(titulo)
+        ax.set_ylabel("Tiempo de ejecucion")
+        plt.show()
+        print(titulo)
+        print("Estadística descriptiva:")
+        print("Media:", np.mean(listaTiempos))
+        print("Mediana:", np.median(listaTiempos))
+        print("Desviación Estándar:", np.std(listaTiempos))
+        print(
+            "Rango intercuartil:",
+            np.percentile(listaTiempos, 75) - np.percentile(listaTiempos, 25),
+        )
+        fig, ax = plt.subplots()
+        ax.violinplot(listaTiempos, showmedians=True)
+        ax.set_title(titulo)
+        ax.set_ylabel("Tiempo de ejecucion")
         plt.show()
