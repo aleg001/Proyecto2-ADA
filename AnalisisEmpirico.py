@@ -1,7 +1,4 @@
-import time
 import numpy as np
-import sklearn.linear_model as lm
-from sklearn.preprocessing import PolynomialFeatures
 import matplotlib.pyplot as plt
 
 
