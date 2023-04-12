@@ -27,7 +27,7 @@ class Simulacion:
         ax.set_title(titulo)
         ax.set_ylabel("Tiempo de ejecucion")
         plt.show()
-        print(titulo)
+        print("\n", titulo)
         print("Estadística descriptiva:")
         print("Media:", np.mean(listaTiempos))
         print("Mediana:", np.median(listaTiempos))
