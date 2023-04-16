@@ -9,13 +9,15 @@ class Simulacion:
             info_list = [s for s in info.split("\n") if s]
             tiempos = [float(i) for i in info_list]
             self.Histograma(tiempos, "Divide and Conquer")
+            DC = tiempos
 
         with open("tiemposPD.txt", "r") as simFile:
             info = simFile.read()
             info_list = [s for s in info.split("\n") if s]
             tiempos = [float(i) for i in info_list]
-
+            pd = tiempos
             self.Histograma(tiempos, "Programación Dinámica")
+        self.ScatterComparativo(DC, pd)
 
     def Histograma(self, listaTiempos, titulo):
         X = listaTiempos
@@ -40,4 +42,17 @@ class Simulacion:
         ax.violinplot(listaTiempos, showmedians=True)
         ax.set_title(titulo)
         ax.set_ylabel("Tiempo de ejecucion")
+        plt.show()
+
+    def ScatterComparativo(self, listaTiempos1, listaTiempos2):
+        fig, ax = plt.subplots()
+        """ 
+        Revisar gráfico de tipo scatter para mostrar los tiempos de ejecución de ambos.
+        
+        ax.scatter(listaTiempos1, len(listaTiempos1) * [0], label="Divide and Conquer")
+        ax.scatter(
+            listaTiempos2, len(listaTiempos2) * [1], label="Programación Dinámica"
+        )
+        """
+
         plt.show()
