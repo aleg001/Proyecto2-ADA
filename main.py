@@ -10,6 +10,7 @@ import Controlador as c
 Iteraciones: Número de veces que se ejecutará el algoritmo
 En caso Análisis Empírico, elegir 0
 """
+
 arg = sys.argv[1]
 arg2 = sys.argv[2]
 c.main(arg, arg2)
